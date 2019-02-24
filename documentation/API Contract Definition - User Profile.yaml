@@ -1,0 +1,201 @@
+swagger: '2.0'
+info:
+  version: 0.0.1
+  title: Profile Manager
+  description: User Profile Manager
+basePath: /user
+tags:
+  - name: userController
+    description: User Controller
+paths:
+  /:
+    post:
+      tags:
+        - userController
+      summary: Create user
+      description: Create user profile
+      operationId: createUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: Details of the user to be created
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid input supplied or Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+  '/{userId}':
+    get:
+      tags:
+        - userController
+      summary: Get user
+      description: Get user details
+      operationId: getUser
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: User's unique identifier
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+    put:
+      tags:
+        - userController
+      summary: Update user
+      description: Update user profile
+      operationId: updateUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: User's unique identifier
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: Details of the user to be updated
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '204':
+          description: No Content
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid input supplied or Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+    delete:
+      tags:
+        - userController
+      summary: Delete user
+      description: Delete user profile
+      operationId: deleteUser
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: User's unique identifier
+          required: true
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+definitions:
+  User:
+    type: object
+    properties:
+      userId:
+        type: string
+        description: User's unique identifier
+      firstName:
+        type: string
+        description: First Name
+      lastName:
+        type: string
+        description: Last Name
+      dateOfBirth:
+        type: string
+        format: date
+        description: Date of Birth
+      addresses:
+        type: array
+        items:
+          $ref: '#/definitions/Address'
+  Address:
+    type: object
+    properties:
+      line1: 
+        type: string
+        description: Address Line 1
+      line2:
+        type: string
+        description: Address Line 2
+      town:
+        type: string
+        description: Town or City
+      postalCode:
+        type: string
+        description: Postal Code
+      country:
+        $ref: '#/definitions/Country'
+        description: Country
+      region:
+        $ref: '#/definitions/Region'
+        description: State or Province
+      addressType:
+        $ref: '#/definitions/AddressType'
+        description: Address Type
+  AddressType:
+    type: string
+    enum:
+      - home
+      - office
+  Country:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name
+      isoCode:
+        type: string
+        description: ISO Code
+  Region:
+    type: object
+    properties:
+      name:
+        type: string
+        description: Name
+      isoCode:
+        type: string
+        description: ISO Code
