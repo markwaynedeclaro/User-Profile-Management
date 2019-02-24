@@ -1,5 +1,7 @@
-# User-Profile-Management
+# User Profile Management
 An API for User Profile Management
+
+This project has a built-in Oauth Authentication server  that should then be utilized to access the APIs.
 
 
 #### Get token from Authentication Server
