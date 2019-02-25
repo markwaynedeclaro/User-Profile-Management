@@ -34,14 +34,14 @@ public class UserProfileController {
     // Get all User Profiles
     @GetMapping
     public List<UserProfile> getAllUserProfiles() {
-    	logger.info("Inside getAllUserProfiles()");
+    	logger.debug("Inside getAllUserProfiles()");
         return userProfileService.getAllUserProfiles();
     }  
     
     // Get a Single User Profile
     @GetMapping("/{username}")
     public UserProfile getUserProfileByUsername(@PathVariable(value = "username") String username) {
-    	logger.info("Inside getUserProfileByUsername()");
+    	logger.debug("Inside getUserProfileByUsername()");
         return userProfileService.getUserProfile(username);
     }   	
 	
@@ -49,7 +49,7 @@ public class UserProfileController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void insertUserProfile(@RequestBody UserProfile userProfile){
-    	logger.info("---call insert UserProfile ---");
+    	logger.debug("---call insert UserProfile ---");
     	userProfileService.insertUserProfile(userProfile);
     }
     
@@ -57,7 +57,7 @@ public class UserProfileController {
     @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateUserProfile(@RequestBody UserProfile userProfile){
-    	logger.info("---call update User Profile ---");
+    	logger.debug("---call update User Profile ---");
     	userProfileService.updateUserProfile(userProfile);
     }
     
