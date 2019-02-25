@@ -8,7 +8,7 @@ This project has a built-in Oauth Authentication server  that should then be uti
 
 Launch POSTMAN to generate TOKEN
 
-    ![Authorization Tab](https://github.com/markwaynedeclaro/User-Profile-Management/blob/master/images/oauth-authorization-1.png "Authorization Tab")
+    ![Authorization Tab](images/oauth-authorization-1.png "Authorization Tab")
     
     ![Body Tab](images/oauth-authorization-2.png "Body Tab")
 
