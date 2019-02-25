@@ -1,8 +1,8 @@
 # User Profile Management
-An API for User Profile Management
+This is an API for User Profile Management built on Springboot.
 
 This project has a built-in Oauth Authentication server  that should then be utilized to access the APIs.
-Inside the CustomUserDetailsService is the creation of test users. 
+Inside the CustomUserDetailsService is the creation of test users (You can edit this or better yet link this to an actual User Repo). 
 
     username : user1
     password : password1
