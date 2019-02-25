@@ -3,18 +3,18 @@ info:
   version: 0.0.1
   title: Profile Manager
   description: User Profile Manager
-basePath: /user
+basePath: /v1/profile
 tags:
-  - name: userController
-    description: User Controller
+  - name: userProfileController
+    description: User Profile Controller
 paths:
   /:
     post:
       tags:
-        - userController
-      summary: Create user
+        - userProfileController
+      summary: Create user profile
       description: Create user profile
-      operationId: createUser
+      operationId: insertUserProfile
       consumes:
         - application/json
       produces:
@@ -22,15 +22,13 @@ paths:
       parameters:
         - name: body
           in: body
-          description: Details of the user to be created
+          description: Details of the user profile to be created
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/Profile'
       responses:
         '201':
           description: Created
-          schema:
-            $ref: '#/definitions/User'
         '400':
           description: Invalid input supplied or Bad Request
         '401':
@@ -41,17 +39,17 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-  '/{userId}':
+  '/{username}':
     get:
       tags:
-        - userController
-      summary: Get user
-      description: Get user details
-      operationId: getUser
+        - userProfileController
+      summary: Get user profile
+      description: Get user profile details
+      operationId: getUserProfile
       produces:
         - application/json
       parameters:
-        - name: userId
+        - name: username
           in: path
           description: User's unique identifier
           required: true
@@ -60,7 +58,7 @@ paths:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/Profile'
         '401':
           description: Unauthorized
         '403':
@@ -74,28 +72,26 @@ paths:
         - userController
       summary: Update user
       description: Update user profile
-      operationId: updateUser
+      operationId: updateUserProfile
       consumes:
         - application/json
       produces:
         - application/json
       parameters:
-        - name: userId
+        - name: username
           in: path
           description: User's unique identifier
           required: true
           type: string
         - name: body
           in: body
-          description: Details of the user to be updated
+          description: Details of the user profile to be updated
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/Profile'
       responses:
         '204':
-          description: No Content
-          schema:
-            $ref: '#/definitions/User'
+          description: OK
         '400':
           description: Invalid input supplied or Bad Request
         '401':
@@ -111,11 +107,11 @@ paths:
         - userController
       summary: Delete user
       description: Delete user profile
-      operationId: deleteUser
+      operationId: deleteUserProfileByUsername
       produces:
         - application/json
       parameters:
-        - name: userId
+        - name: username
           in: path
           description: User's unique identifier
           required: true
@@ -132,10 +128,10 @@ paths:
         '500':
           description: Internal Server Error
 definitions:
-  User:
+  Profile:
     type: object
     properties:
-      userId:
+      username:
         type: string
         description: User's unique identifier
       firstName:
@@ -151,11 +147,11 @@ definitions:
       addresses:
         type: array
         items:
-          $ref: '#/definitions/Address'
-  Address:
+          $ref: '#/definitions/ProfileAddress'
+  ProfileAddress:
     type: object
     properties:
-      line1: 
+      line1:
         type: string
         description: Address Line 1
       line2:
@@ -167,35 +163,17 @@ definitions:
       postalCode:
         type: string
         description: Postal Code
-      country:
-        $ref: '#/definitions/Country'
-        description: Country
       region:
-        $ref: '#/definitions/Region'
-        description: State or Province
+        type: string
+        description: State or Province Name
+      country:
+        type: string
+        description: Country Name
       addressType:
         $ref: '#/definitions/AddressType'
-        description: Address Type
   AddressType:
     type: string
+    description: Address Type
     enum:
       - home
       - office
-  Country:
-    type: object
-    properties:
-      name:
-        type: string
-        description: Name
-      isoCode:
-        type: string
-        description: ISO Code
-  Region:
-    type: object
-    properties:
-      name:
-        type: string
-        description: Name
-      isoCode:
-        type: string
-        description: ISO Code
